@@ -1,73 +1,98 @@
 # devOps_Begginer
 ## Project URL
 https://roadmap.sh/projects/server-stats
-[https://github.com/rogo-s/devOps_Begginer](https://github.com/rogo-s/devOps_Begginer)
 
 # Notes
-Notes : 
-MacOS
-buat file (nano server-stats.sh) && delete file (rm server-stats.sh)
-simpan dan keluar (Ctrl+O – Enter / keluar (Ctrl+X)) && melihat skrip tidak memiliki karakter tak terlihat (cat -A server-stats.sh)
-Izin File chmod +x server-stats.sh
-Eksekusi File ./server-stats.sh
-debugging untuk melihat langkah eksekusi (bash -x ./server-stats.sh)
-Notes : 
+Notes:
+macOS
+Create a file: nano server-stats.sh
+Delete a file: rm server-stats.sh
+Save and exit: Ctrl+O – Enter / Exit: Ctrl+X
+Check the script for invisible characters: cat -A server-stats.sh
+Set file permissions: chmod +x server-stats.sh
+Execute the script: ./server-stats.sh
+Debugging to see execution steps: bash -x ./server-stats.sh
 Linux
-Membuat file (notepad server-stats.ps1)
-Memeriksa file didirektory aktif  (Get-ChildItem *.ps1)
-Izin skrip untuk running (Set-ExecutionPolicy RemoteSigned -Scope CurrentUser)
-Menjalankan skrip (.\server-stats.ps1)
+Create a file: notepad server-stats.ps1
+Check the file in the current directory: Get-ChildItem *.ps1
+Set script permissions for execution: Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+Run the script: .\server-stats.ps1
+Comparison Between Linux & macOS
+Both scripts are designed to display server performance statistics but differ significantly in their implementation, as they are written for different operating systems with distinct tools and syntax. Below is a comparison:
 
-# Compare between Linux & MacOS
-Kedua skrip ini dirancang untuk menampilkan statistik performa server, tetapi memiliki perbedaan signifikan karena ditulis untuk sistem operasi yang berbeda dengan alat dan sintaks masing-masing. Berikut adalah perbandingan keduanya:
 1. Target Platform
 Bash Script
-Ditulis untuk sistem berbasis Unix/Linux atau macOS. Menggunakan alat seperti top, vm_stat, df, dan ps.
+
+Written for Unix/Linux-based systems or macOS.
+Uses tools like top, vm_stat, df, and ps.
 PowerShell Script
-Ditulis untuk sistem operasi Windows. Memanfaatkan modul seperti Get-WmiObject, Get-CimInstance, dan Get-Process.
-2. Informasi yang Ditampilkan
+
+Written for Windows operating systems.
+Utilizes modules like Get-WmiObject, Get-CimInstance, and Get-Process.
+2. Information Displayed
 Total CPU Usage
+
 Bash Script
-Menggunakan top untuk menampilkan metrik seperti user, system, dan idle CPU usage secara lebih terperinci.
+
+Uses top to display detailed metrics such as user, system, and idle CPU usage.
 PowerShell Script
-Hanya memberikan rata-rata beban prosesor dalam persentase menggunakan Get-WmiObject.
+
+Provides only the average processor load percentage using Get-WmiObject.
 Total Memory Usage
+
 Bash Script
-Menghitung memori aktif, bebas, dan total dari hasil vm_stat serta memperhitungkan ukuran halaman memori (page size).
+
+Calculates active, free, and total memory from vm_stat output and factors in page size.
 PowerShell Script
-Menggunakan Get-CimInstance untuk mendapatkan informasi memori total dan bebas, kemudian menghitung memori yang digunakan.
+
+Uses Get-CimInstance to fetch total and free memory information, then calculates used memory.
 Disk Usage
+
 Bash Script
-Menggunakan df untuk menampilkan informasi penggunaan disk hanya untuk root directory /.
+
+Uses df to show disk usage for the root directory (/) only.
 PowerShell Script
-Memanfaatkan Get-PSDrive untuk memeriksa semua drive pada sistem dan memberikan informasi penggunaan disk untuk setiap drive.
+
+Leverages Get-PSDrive to check all drives on the system and displays usage for each drive.
 Top Processes by CPU Usage
+
 Bash Script
-Menggunakan ps dan sort untuk memilih proses dengan CPU usage tertinggi, lalu memformat output dengan awk.
+
+Uses ps and sort to list processes with the highest CPU usage and formats the output with awk.
 PowerShell Script
-Memanfaatkan Get-Process untuk mengurutkan dan menampilkan proses berdasarkan CPU usage tertinggi.
+
+Utilizes Get-Process to sort and display processes by CPU usage.
 Top Processes by Memory Usage
+
 Bash Script
-Sama seperti penggunaan CPU, ps digunakan untuk mengurutkan proses berdasarkan memory usage.
+
+Similar to CPU usage, ps is used to sort processes by memory usage.
 PowerShell Script
-Menggunakan Get-Process untuk memilih proses dengan penggunaan memori tertinggi.
+
+Uses Get-Process to select processes with the highest memory usage.
 3. Output Format
 Bash Script
-Output lebih sederhana dan diformat dengan bantuan awk. Namun, ada bug karena beberapa header tabel muncul dua kali (contoh: "USER PID %CPU %MEM COMMAND" dicetak ulang).
+
+Produces simpler output formatted with awk.
+Contains a bug where some table headers are repeated (e.g., "USER PID %CPU %MEM COMMAND").
 PowerShell Script
-Output lebih terstruktur karena menggunakan Format-Table. Hasil lebih rapi dan mudah dibaca.
-4. Kompatibilitas dan Ketersediaan Tools
+
+Generates more structured and visually appealing output using Format-Table.
+4. Compatibility and Tool Availability
 Bash Script
-Tergantung pada alat standar Unix/Linux seperti vm_stat dan ps, yang mungkin tidak tersedia atau berbeda sintaksnya pada beberapa distro.
+
+Relies on standard Unix/Linux tools like vm_stat and ps, which may vary in syntax or availability across distributions.
 PowerShell Script
-Bergantung pada modul PowerShell bawaan Windows yang tersedia di hampir semua versi modern.
-5. Bug atau Kekurangan
+
+Depends on built-in PowerShell modules available on most modern Windows systems.
+5. Bugs or Limitations
 Bash Script
-Header tabel proses diulangi pada output.
-awk memotong nama proses panjang tanpa pengaturan kolom fleksibel.
+
+Table headers for processes are repeated unnecessarily.
+Long process names are truncated due to inflexible column formatting in awk.
 PowerShell Script
-Penggunaan angka desimal panjang (misalnya, "7541.96 MB") untuk memori dapat diperpendek untuk kejelasan.
-Tidak ada rincian penggunaan CPU seperti user, system, dan idle.
+Decimal precision for memory usage (e.g., "7541.96 MB") could be rounded for clarity.
+Does not provide detailed CPU usage breakdowns like user, system, or idle.
 
 # Tutorial Bash Scripting
 #!/bin/bash
