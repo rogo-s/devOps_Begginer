@@ -96,11 +96,18 @@ Does not provide detailed CPU usage breakdowns like user, system, or idle.
 
 # Tutorial Bash Scripting
 #!/bin/bash
+# Bash Script: Server Performance Stats
+
 echo "Server Performance Stats"
+echo "========================="
+
+# Function to display CPU usage
 cpu_usage() {
     echo "1. Total CPU Usage:"
     top -l 1 | grep "CPU usage" | awk '{print $3, $4, $5, $6, $7, $8}'
 }
+
+# Function to display memory usage
 memory_usage() {
     echo "2. Total Memory Usage:"
     mem_used=$(vm_stat | grep 'Pages active' | awk '{print $3}' | sed 's/\.//')
@@ -111,20 +118,28 @@ memory_usage() {
     mem_total_mb=$((mem_used_mb + mem_free_mb))
     echo "   Used: ${mem_used_mb} MB / Free: ${mem_free_mb} MB / Total: ${mem_total_mb} MB"
 }
+
+# Function to display disk usage
 disk_usage() {
     echo "3. Total Disk Usage:"
     df -h / | awk 'NR==2 {print "   Used: "$3 " / Free: "$4}'
 }
+
+# Function to display top 5 processes by CPU usage
 top_cpu_processes() {
     echo "4. Top 5 Processes by CPU Usage:"
-    ps aux | sort -rk 3 | head -n 5 | awk '{printf "%-10s %-10s %-6s %-6s %-10s\n", $1, $2, $3, $$
     echo "USER       PID       %CPU   %MEM   COMMAND"
+    ps aux | sort -rk 3 | head -n 5 | awk '{printf "%-10s %-10s %-6s %-6s %-10s\n", $1, $2, $3, $4, $11}'
 }
+
+# Function to display top 5 processes by memory usage
 top_memory_processes() {
     echo "5. Top 5 Processes by Memory Usage:"
-    ps aux | sort -rk 4 | head -n 5 | awk '{printf "%-10s %-10s %-6s %-6s %-10s\n", $1, $2, $3, $$
     echo "USER       PID       %CPU   %MEM   COMMAND"
+    ps aux | sort -rk 4 | head -n 5 | awk '{printf "%-10s %-10s %-6s %-6s %-10s\n", $1, $2, $3, $4, $11}'
 }
+
+# Call all functions
 cpu_usage
 memory_usage
 disk_usage
