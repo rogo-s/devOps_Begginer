@@ -1,4 +1,7 @@
 # devOps_Begginer
+## Project URL
+[https://github.com/rogo-s/devOps_Begginer](https://github.com/rogo-s/devOps_Begginer)
+
 # Tutorial
 Notes : 
 MacOS
@@ -15,7 +18,55 @@ Izin skrip untuk running (Set-ExecutionPolicy RemoteSigned -Scope CurrentUser)
 Menjalankan skrip (.\server-stats.ps1)
 
 # Compare between Linux & MacOS
-
+Kedua skrip ini dirancang untuk menampilkan statistik performa server, tetapi memiliki perbedaan signifikan karena ditulis untuk sistem operasi yang berbeda dengan alat dan sintaks masing-masing. Berikut adalah perbandingan keduanya:
+1. Target Platform
+Bash Script
+Ditulis untuk sistem berbasis Unix/Linux atau macOS. Menggunakan alat seperti top, vm_stat, df, dan ps.
+PowerShell Script
+Ditulis untuk sistem operasi Windows. Memanfaatkan modul seperti Get-WmiObject, Get-CimInstance, dan Get-Process.
+2. Informasi yang Ditampilkan
+Total CPU Usage
+Bash Script
+Menggunakan top untuk menampilkan metrik seperti user, system, dan idle CPU usage secara lebih terperinci.
+PowerShell Script
+Hanya memberikan rata-rata beban prosesor dalam persentase menggunakan Get-WmiObject.
+Total Memory Usage
+Bash Script
+Menghitung memori aktif, bebas, dan total dari hasil vm_stat serta memperhitungkan ukuran halaman memori (page size).
+PowerShell Script
+Menggunakan Get-CimInstance untuk mendapatkan informasi memori total dan bebas, kemudian menghitung memori yang digunakan.
+Disk Usage
+Bash Script
+Menggunakan df untuk menampilkan informasi penggunaan disk hanya untuk root directory /.
+PowerShell Script
+Memanfaatkan Get-PSDrive untuk memeriksa semua drive pada sistem dan memberikan informasi penggunaan disk untuk setiap drive.
+Top Processes by CPU Usage
+Bash Script
+Menggunakan ps dan sort untuk memilih proses dengan CPU usage tertinggi, lalu memformat output dengan awk.
+PowerShell Script
+Memanfaatkan Get-Process untuk mengurutkan dan menampilkan proses berdasarkan CPU usage tertinggi.
+Top Processes by Memory Usage
+Bash Script
+Sama seperti penggunaan CPU, ps digunakan untuk mengurutkan proses berdasarkan memory usage.
+PowerShell Script
+Menggunakan Get-Process untuk memilih proses dengan penggunaan memori tertinggi.
+3. Output Format
+Bash Script
+Output lebih sederhana dan diformat dengan bantuan awk. Namun, ada bug karena beberapa header tabel muncul dua kali (contoh: "USER PID %CPU %MEM COMMAND" dicetak ulang).
+PowerShell Script
+Output lebih terstruktur karena menggunakan Format-Table. Hasil lebih rapi dan mudah dibaca.
+4. Kompatibilitas dan Ketersediaan Tools
+Bash Script
+Tergantung pada alat standar Unix/Linux seperti vm_stat dan ps, yang mungkin tidak tersedia atau berbeda sintaksnya pada beberapa distro.
+PowerShell Script
+Bergantung pada modul PowerShell bawaan Windows yang tersedia di hampir semua versi modern.
+5. Bug atau Kekurangan
+Bash Script
+Header tabel proses diulangi pada output.
+awk memotong nama proses panjang tanpa pengaturan kolom fleksibel.
+PowerShell Script
+Penggunaan angka desimal panjang (misalnya, "7541.96 MB") untuk memori dapat diperpendek untuk kejelasan.
+Tidak ada rincian penggunaan CPU seperti user, system, dan idle.
 
 # Bash Scripting
 #!/bin/bash
