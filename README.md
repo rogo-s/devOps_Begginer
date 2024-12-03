@@ -2,7 +2,7 @@
 ## Project URL
 [https://github.com/rogo-s/devOps_Begginer](https://github.com/rogo-s/devOps_Begginer)
 
-# Tutorial
+# Notes
 Notes : 
 MacOS
 buat file (nano server-stats.sh) && delete file (rm server-stats.sh)
@@ -68,10 +68,9 @@ PowerShell Script
 Penggunaan angka desimal panjang (misalnya, "7541.96 MB") untuk memori dapat diperpendek untuk kejelasan.
 Tidak ada rincian penggunaan CPU seperti user, system, dan idle.
 
-# Bash Scripting
+# Tutorial Bash Scripting
 #!/bin/bash
 echo "Server Performance Stats"
-echo "========================="
 cpu_usage() {
     echo "1. Total CPU Usage:"
     top -l 1 | grep "CPU usage" | awk '{print $3, $4, $5, $6, $7, $8}'
@@ -132,7 +131,6 @@ USER       PID       %CPU   %MEM   COMMAND
 ###############################################################################################
 
 Write-Host "Server Performance Stats"
-Write-Host "========================="
 
 Write-Host "`n1. Total CPU Usage:"
 $cpuUsage = Get-WmiObject Win32_Processor | Measure-Object -Property LoadPercentage -Average | Select-Object -ExpandProperty Average
